@@ -222,7 +222,7 @@
     table.excel-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       font-family: 'Segoe UI', sans-serif;
       background: #fcfaf7;
       table-layout: fixed;
@@ -251,7 +251,8 @@
       color: #4a5a6a;
     }
     .col-alumno {
-      width: 140px;
+      width: 25ch;
+      max-width: 30ch;
       background: #f5f0ea;
       border-right: 1px solid #d0c8bc;
       text-align: left;
@@ -261,7 +262,7 @@
       border: 1px solid transparent;
       background: transparent;
       padding: 1px 2px;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       font-weight: 600;
       outline: none;
       font-family: 'Segoe UI', sans-serif;
@@ -270,14 +271,14 @@
     .col-alumno input:focus { border-color: #2c4a6e; background: #fff; }
 
     .col-actividad {
-      width: 32px;
+      width: 40px;
       background: #faf7f2;
       padding: 2px 0;
     }
     .act-vertical {
       writing-mode: vertical-rl;
       text-orientation: upright;
-      font-size: 0.55rem;
+      font-size: 0.5rem;
       font-weight: 700;
       letter-spacing: 0.08em;
       line-height: 1.1;
@@ -304,7 +305,7 @@
       border: 1px solid #d0c8bc;
       border-radius: 4px;
       background: rgba(255,255,255,0.6);
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       font-weight: 600;
       outline: none;
       font-family: 'Segoe UI', sans-serif;
@@ -318,11 +319,11 @@
     }
 
     .col-promedio {
-      width: 28px; /* Reducido de 40px a 28px */
+      width: 28px;
       background: #e8f0e0;
       font-weight: 800;
       border-left: 1px solid #d0c8bc;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       color: #1a3a2a;
     }
     .col-acciones {
@@ -630,8 +631,8 @@
       .login-grid { grid-template-columns: 1fr; }
       .field-row { grid-template-columns: 1fr; }
       .topbar .right { position: static; justify-content: center; margin-top: 0.4rem; }
-      .col-alumno { width: 100px; }
-      .col-actividad { width: 28px; }
+      .col-alumno { width: 18ch; }
+      .col-actividad { width: 32px; }
       .col-calif input { width: 26px; }
       .col-promedio { width: 24px; }
       .col-acciones { width: 24px; }
@@ -1113,7 +1114,7 @@ function renderTeacherBody() {
   else if (teacherTab === 'configuracion') c.innerHTML = viewConfiguracion();
 }
 
-/* ─── LISTAS (con botones de editar/eliminar en la barra inferior) ─── */
+/* ─── LISTAS ─── */
 let currentGrado = '1';
 let currentGrupo = 'A';
 
@@ -1217,7 +1218,7 @@ function viewListas() {
   `;
 }
 
-// ─── Nuevas funciones para editar/eliminar desde el selector ───
+// ─── Funciones para editar/eliminar desde selector ───
 function editSelectedActividad(gid) {
   const selector = document.getElementById('actSelector');
   if (!selector) { toast('No hay actividades','error'); return; }
@@ -1249,7 +1250,7 @@ function deleteSelectedActividad(gid) {
   toast('Actividad eliminada','success');
 }
 
-// ─── Funciones auxiliares de Listas (agregar, editar nombre, etc.) ───
+// ─── Funciones auxiliares de Listas ───
 function addActividad(gid) {
   if (!gid) { toast('Selecciona un grupo primero','error'); return; }
   const inp = document.getElementById('newActName');
@@ -1271,7 +1272,6 @@ function setGrade(gid, sid, aid, val) {
   if (val==='') delete g.grades[key];
   else g.grades[key] = val;
   save();
-  // Actualizar promedio redondeado en la tabla
   const avg = calcAvg(g, sid);
   const avgCell = document.getElementById(`avg_${gid}_${sid}`);
   if (avgCell) avgCell.textContent = avg !== null ? Math.round(avg) : '–';
