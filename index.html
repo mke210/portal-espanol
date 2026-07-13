@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Portal de Español</title>
+  <title>Portal Escolar de Español</title>
   <style>
     /* ─── GLASSMORPHISM FORMAL ─── */
     * { box-sizing: border-box; margin: 0; }
@@ -63,12 +63,7 @@
       color: #0b1a2b;
       text-shadow: 0 1px 4px rgba(255,255,255,0.2);
       font-family: 'Georgia', serif;
-    }
-    .topbar .brand p {
-      font-size: 0.8rem;
-      opacity: 0.6;
-      font-weight: 400;
-      font-style: italic;
+      margin: 0;
     }
     .topbar .right {
       display: flex;
@@ -444,7 +439,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1.5rem;
-      margin-top: 1rem;
+      margin-top: 0.5rem;
     }
     .login-card {
       background: rgba(255, 255, 255, 0.25);
@@ -568,10 +563,7 @@
   <header class="topbar">
     <div class="brand">
       <div class="logo">📚</div>
-      <div>
-        <h1>Portal de Español</h1>
-        <p id="brandSub">Acceso seguro para la comunidad educativa</p>
-      </div>
+      <h1>Portal Escolar de Español</h1>
     </div>
     <div class="right">
       <span class="conn offline" id="connBadge"><span class="conn-dot"></span><span id="connText">Local</span></span>
@@ -591,8 +583,8 @@
    ═══════════════════════════════════════════════════ */
 const CONFIG = {
   storeKey: 'portal_espanol_v3',
-  teacherUser: 'admin',          // <--- Usuario actualizado
-  teacherPass: '123456',         // <--- Contraseña actualizada
+  teacherUser: 'admin',
+  teacherPass: '123456',
   firebase: {
     apiKey: "AIzaSyBTmE3176hMCMJqJIhSwDhBIUUA-Wb2hG0",
     authDomain: "portal-espanol-dd4f8.firebaseapp.com",
@@ -861,36 +853,26 @@ function render() {
   const app = document.getElementById('app');
   if (!state.session) {
     document.getElementById('logoutBtn').style.display = 'none';
-    $('#brandSub').textContent = 'Acceso seguro para la comunidad educativa';
     app.innerHTML = renderLanding();
     return;
   }
   document.getElementById('logoutBtn').style.display = '';
   if (state.session.role === 'teacher') {
-    $('#brandSub').textContent = 'Panel del maestro';
     app.innerHTML = renderTeacherShell();
     renderTeacherTabs();
   } else if (state.session.role === 'student') {
-    $('#brandSub').textContent = 'Panel del alumno';
     app.innerHTML = renderStudentShell();
     renderStudentTabs();
   } else if (state.session.role === 'parent') {
-    $('#brandSub').textContent = 'Panel del padre/madre';
     app.innerHTML = renderParentShell();
     renderParentTabs();
   }
 }
 
-/* ─── NUEVO LANDING CON TARJETAS ─── */
+/* ─── NUEVO LANDING CON TARJETAS (sin título) ─── */
 function renderLanding() {
   return `
     <div style="max-width:1000px; margin:0 auto;">
-      <div style="text-align:center; margin-bottom:2rem;">
-        <div style="font-size:3.5rem;">📚</div>
-        <h1 style="font-size:2.2rem; font-weight:700; margin:0.2rem 0; font-family:'Georgia',serif;">Portal de Español</h1>
-        <p style="opacity:0.5; font-style:italic; font-size:0.95rem;">Recursos educativos para la comunidad</p>
-      </div>
-
       <div class="login-grid">
         <!-- TARJETA MAESTRO -->
         <div class="login-card" id="cardTeacher" onclick="selectLoginCard('teacher')">
@@ -957,7 +939,6 @@ function doLoginTeacher() {
     state.session = { role:'teacher', name: state.config.teacherName || 'Profesor/a' };
     render();
     toast('Bienvenido/a, Maestro','success');
-    // Limpiar campos
     if ($('#liUser')) $('#liUser').value = '';
     if ($('#liPass')) $('#liPass').value = '';
   } else {
@@ -1009,7 +990,7 @@ function logout() {
 }
 
 /* ═══════════════════════════════════════════════════
-   MAESTRO - TABS (todo igual que antes)
+   MAESTRO - TABS (todo igual)
    ═══════════════════════════════════════════════════ */
 let teacherTab = 'listas';
 const TEACHER_TABS = [
@@ -1053,7 +1034,7 @@ function renderTeacherBody() {
   else if (teacherTab === 'configuracion') c.innerHTML = viewConfiguracion();
 }
 
-/* ─── LISTAS (tabla tipo Excel) ─── */
+/* ─── LISTAS ─── */
 let currentGrado = '1';
 let currentGrupo = 'A';
 function viewListas() {
@@ -1249,7 +1230,7 @@ function saveNewStudent() {
   toast(`Alumno agregado con código ${code}`,'success');
 }
 
-/* ─── ALUMNOS (organizado por grados/grupos) ─── */
+/* ─── ALUMNOS ─── */
 function viewAlumnos() {
   let html = `
     <div class="panel tinted">
@@ -2252,7 +2233,7 @@ render();
 fbInit();
 
 document.querySelector('.logo')?.addEventListener('dblclick', ()=>{
-  toast('Portal de Español v3 · '+(firebaseConfigured()?'Firebase activo':'modo local'),'success');
+  toast('Portal Escolar de Español v3 · '+(firebaseConfigured()?'Firebase activo':'modo local'),'success');
 });
 </script>
 </body>
