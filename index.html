@@ -439,41 +439,88 @@
     }
     .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
 
-    .role-cards {
+    /* ─── NUEVO LOGIN CON TARJETAS ─── */
+    .login-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.2rem;
-      margin-bottom: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
     }
-    .role-card {
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      border-radius: 28px;
-      padding: 1.2rem 0.8rem;
+    .login-card {
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 32px;
+      padding: 1.5rem 1.2rem;
       text-align: center;
-      cursor: pointer;
       transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.01);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+      cursor: default;
     }
-    .role-card:hover {
+    .login-card:hover {
       transform: translateY(-4px);
       background: rgba(255, 255, 255, 0.35);
       border-color: rgba(255, 255, 255, 0.5);
       box-shadow: 0 12px 30px rgba(0,0,0,0.04);
     }
-    .role-card.selected {
+    .login-card.selected {
       background: rgba(255, 255, 255, 0.5);
       border-color: #2c4a6e;
       transform: scale(1.02);
       box-shadow: 0 8px 30px rgba(44, 74, 110, 0.08);
     }
-    .role-card .icon { font-size: 2.6rem; margin-bottom: 0.4rem; }
-    .role-card .label { font-weight: 700; font-size: 1rem; color: #1a2a3a; font-family: 'Georgia', serif; }
-    .role-card .desc { font-size: 0.75rem; opacity: 0.5; margin-top: 0.2rem; font-style: italic; }
-
-    .login-form { margin-top: 0.5rem; animation: fadeSlide 0.3s ease; }
-    @keyframes fadeSlide { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
+    .login-card .icon {
+      font-size: 3rem;
+      margin-bottom: 0.4rem;
+    }
+    .login-card .role-title {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #1a2a3a;
+      font-family: 'Georgia', serif;
+      margin-bottom: 0.2rem;
+    }
+    .login-card .role-desc {
+      font-size: 0.85rem;
+      opacity: 0.6;
+      margin-bottom: 1.2rem;
+      font-style: italic;
+    }
+    .login-card .field {
+      margin-bottom: 0.8rem;
+      text-align: left;
+    }
+    .login-card .field label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.75rem;
+      opacity: 0.6;
+      margin-bottom: 0.2rem;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: left;
+    }
+    .login-card .field input {
+      width: 100%;
+      padding: 0.5rem 0.8rem;
+      border-radius: 40px;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(4px);
+      font: inherit;
+      outline: none;
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 0.9rem;
+      transition: 0.1s;
+    }
+    .login-card .field input:focus {
+      border-color: #2c4a6e;
+      background: rgba(255,255,255,0.5);
+    }
+    .login-card .btn {
+      width: 100%;
+      justify-content: center;
+      margin-top: 0.2rem;
+    }
 
     .config-item {
       display: flex; align-items: center; gap: 0.6rem;
@@ -510,7 +557,7 @@
     @media (max-width: 600px) {
       .app-container { padding: 0.8rem; }
       .topbar .brand h1 { font-size: 1.2rem; }
-      .role-cards { grid-template-columns: 1fr; }
+      .login-grid { grid-template-columns: 1fr; }
       .field-row { grid-template-columns: 1fr; }
     }
   </style>
@@ -545,7 +592,7 @@
 const CONFIG = {
   storeKey: 'portal_espanol_v3',
   teacherUser: 'profesor',
-  // 🔥 CREDENCIALES DE FIREBASE (ACTUALIZADAS)
+  teacherPass: '1234',        // <-- Contraseña del maestro
   firebase: {
     apiKey: "AIzaSyBTmE3176hMCMJqJIhSwDhBIUUA-Wb2hG0",
     authDomain: "portal-espanol-dd4f8.firebaseapp.com",
@@ -834,88 +881,127 @@ function render() {
   }
 }
 
-/* ─── LANDING ─── */
-let selectedRole = 'teacher';
+/* ─── NUEVO LANDING CON TARJETAS ─── */
 function renderLanding() {
-  const roles = [
-    { id: 'teacher', icon: '👨‍🏫', label: 'Maestro', desc: 'Gestiona grupos, actividades y calificaciones' },
-    { id: 'student', icon: '🧑‍🎓', label: 'Alumno', desc: 'Consulta tus calificaciones y materiales' },
-    { id: 'parent', icon: '👨‍👩‍👧', label: 'Padre / Madre', desc: 'Sigue el progreso de tus hijos' }
-  ];
-  const cardsHtml = roles.map(r => `
-    <div class="role-card ${selectedRole===r.id?'selected':''}" onclick="selectRole('${r.id}')">
-      <div class="icon">${r.icon}</div>
-      <div class="label">${r.label}</div>
-      <div class="desc">${r.desc}</div>
-    </div>
-  `).join('');
-
-  let formHtml = '';
-  if (selectedRole === 'teacher') {
-    formHtml = `<div class="login-form" style="text-align:center; padding:0.5rem 0;"><p style="opacity:0.4; font-style:italic; font-size:0.9rem;">👨‍🏫 Haz clic en la tarjeta del Maestro para acceder</p></div>`;
-  } else if (selectedRole === 'student') {
-    formHtml = `
-      <div class="login-form">
-        <div class="field"><label>Tu código de acceso</label><input id="liCode" type="text" placeholder="Ej: aB3x" onkeydown="if(event.key==='Enter')doLogin()" style="text-transform:uppercase; letter-spacing:0.1em;"></div>
-        <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="doLogin()">Ingresar como Alumno</button>
-        <p class="sub" style="margin-top:0.6rem; text-align:center; opacity:0.5; font-style:italic;">Usa tu código de 4 caracteres.</p>
-      </div>
-    `;
-  } else if (selectedRole === 'parent') {
-    formHtml = `
-      <div class="login-form">
-        <div class="field"><label>Código de tu hijo/a</label><input id="liParentCode" type="text" placeholder="Ej: aB3x" onkeydown="if(event.key==='Enter')doLoginParent()" style="text-transform:uppercase; letter-spacing:0.1em;"></div>
-        <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="doLoginParent()">Ingresar como Padre/Madre</button>
-        <p class="sub" style="margin-top:0.6rem; text-align:center; opacity:0.5; font-style:italic;">Usa el mismo código del alumno.</p>
-      </div>
-    `;
-  }
-
   return `
-    <div style="max-width:560px; margin:0.5rem auto;">
-      <div style="text-align:center; margin-bottom:1.5rem;">
+    <div style="max-width:1000px; margin:0 auto;">
+      <div style="text-align:center; margin-bottom:2rem;">
         <div style="font-size:3.5rem;">📚</div>
         <h1 style="font-size:2.2rem; font-weight:700; margin:0.2rem 0; font-family:'Georgia',serif;">Portal de Español</h1>
         <p style="opacity:0.5; font-style:italic; font-size:0.95rem;">Recursos educativos para la comunidad</p>
       </div>
-      <div class="panel" style="padding:1.5rem;">
-        <div class="role-cards">${cardsHtml}</div>
-        ${formHtml}
+
+      <div class="login-grid">
+        <!-- TARJETA MAESTRO -->
+        <div class="login-card" id="cardTeacher" onclick="selectLoginCard('teacher')">
+          <div class="icon">👨‍🏫</div>
+          <div class="role-title">Maestro</div>
+          <div class="role-desc">Administra materiales, exámenes y calificaciones</div>
+          <div class="field">
+            <label>Usuario</label>
+            <input type="text" id="liUser" placeholder="profesor" onkeydown="if(event.key==='Enter')doLoginTeacher()">
+          </div>
+          <div class="field">
+            <label>Contraseña</label>
+            <input type="password" id="liPass" placeholder="••••••" onkeydown="if(event.key==='Enter')doLoginTeacher()">
+          </div>
+          <button class="btn btn-primary" onclick="doLoginTeacher()">Ingresar</button>
+        </div>
+
+        <!-- TARJETA ALUMNO -->
+        <div class="login-card" id="cardStudent" onclick="selectLoginCard('student')">
+          <div class="icon">🎒</div>
+          <div class="role-title">Alumno</div>
+          <div class="role-desc">Consulta materiales y contesta exámenes</div>
+          <div class="field">
+            <label>Tu código</label>
+            <input type="text" id="liStudentCode" placeholder="Ej: aB3x" onkeydown="if(event.key==='Enter')doLoginStudent()" style="text-transform:uppercase; letter-spacing:0.1em;">
+          </div>
+          <button class="btn btn-primary" onclick="doLoginStudent()">Entrar</button>
+        </div>
+
+        <!-- TARJETA PADRE -->
+        <div class="login-card" id="cardParent" onclick="selectLoginCard('parent')">
+          <div class="icon">👪</div>
+          <div class="role-title">Padre de familia</div>
+          <div class="role-desc">Consulta el avance académico de tu hijo</div>
+          <div class="field">
+            <label>Código de tu hijo</label>
+            <input type="text" id="liParentCode" placeholder="Ej: aB3x" onkeydown="if(event.key==='Enter')doLoginParent()" style="text-transform:uppercase; letter-spacing:0.1em;">
+          </div>
+          <button class="btn btn-primary" onclick="doLoginParent()">Entrar</button>
+        </div>
       </div>
-      <p class="sub" style="text-align:center; opacity:0.3; font-size:0.7rem; margin-top:0.8rem;">
+
+      <p class="sub" style="text-align:center; opacity:0.3; font-size:0.7rem; margin-top:1.5rem;">
         ${firebaseConfigured() ? '☁️ Datos sincronizados en la nube' : '📁 Datos guardados localmente'}
       </p>
     </div>
   `;
 }
-function selectRole(role) {
-  selectedRole = role;
-  if (role === 'teacher') { doLoginTeacher(); }
-  else { render(); }
+
+// Para resaltar la tarjeta al hacer clic (movimiento)
+let selectedCard = null;
+function selectLoginCard(role) {
+  // Quitar selección anterior
+  document.querySelectorAll('.login-card').forEach(el => el.classList.remove('selected'));
+  const card = document.getElementById('card' + role.charAt(0).toUpperCase() + role.slice(1));
+  if (card) card.classList.add('selected');
+  selectedCard = role;
 }
+
+// ─── LOGIN FUNCIONES ───
 function doLoginTeacher() {
-  state.session = { role:'teacher', name: state.config.teacherName || 'Profesor/a' };
-  render();
-  toast('Bienvenido/a, Maestro','success');
+  const user = ($('#liUser')?.value||'').trim();
+  const pass = ($('#liPass')?.value||'').trim();
+  if (user === CONFIG.teacherUser && pass === CONFIG.teacherPass) {
+    state.session = { role:'teacher', name: state.config.teacherName || 'Profesor/a' };
+    render();
+    toast('Bienvenido/a, Maestro','success');
+    // Limpiar campos
+    if ($('#liUser')) $('#liUser').value = '';
+    if ($('#liPass')) $('#liPass').value = '';
+  } else {
+    toast('Usuario o contraseña incorrectos','error');
+  }
 }
-function doLogin() {
-  const code = ($('#liCode')?.value||'').trim().toUpperCase();
+
+function doLoginStudent() {
+  const code = ($('#liStudentCode')?.value||'').trim().toUpperCase();
   if (!code) { toast('Escribe tu código','error'); return; }
   const found = findStudentByCode(code);
   if (!found) { toast('Código no encontrado','error'); return; }
-  state.session = { role:'student', name: found.student.name, studentId: found.student.id, grado: found.group.grado, grupo: found.group.grupo, code: found.student.code };
+  state.session = {
+    role:'student',
+    name: found.student.name,
+    studentId: found.student.id,
+    grado: found.group.grado,
+    grupo: found.group.grupo,
+    code: found.student.code
+  };
   render();
   toast(`Hola, ${found.student.name}`,'success');
+  if ($('#liStudentCode')) $('#liStudentCode').value = '';
 }
+
 function doLoginParent() {
   const code = ($('#liParentCode')?.value||'').trim().toUpperCase();
   if (!code) { toast('Escribe el código de tu hijo/a','error'); return; }
   const found = findStudentByCode(code);
   if (!found) { toast('Código no encontrado','error'); return; }
-  state.session = { role:'parent', name: found.student.name, studentId: found.student.id, grado: found.group.grado, grupo: found.group.grupo, code: found.student.code };
+  state.session = {
+    role:'parent',
+    name: found.student.name,
+    studentId: found.student.id,
+    grado: found.group.grado,
+    grupo: found.group.grupo,
+    code: found.student.code
+  };
   render();
   toast(`Bienvenido, padre/madre de ${found.student.name}`,'success');
+  if ($('#liParentCode')) $('#liParentCode').value = '';
 }
+
 function logout() {
   if (!state.session) return;
   if (!confirm('¿Cerrar sesión?')) return;
@@ -924,7 +1010,7 @@ function logout() {
 }
 
 /* ═══════════════════════════════════════════════════
-   MAESTRO - TABS
+   MAESTRO - TABS (todo igual que antes)
    ═══════════════════════════════════════════════════ */
 let teacherTab = 'listas';
 const TEACHER_TABS = [
