@@ -211,37 +211,39 @@
       font-family: 'Segoe UI', sans-serif;
     }
 
-    /* ─── TABLA ESTILO EXCEL ─── */
+    /* ─── TABLA ESTILO EXCEL – COMPACTA ─── */
     .table-wrap {
       overflow-x: auto;
-      border-radius: 16px;
+      border-radius: 12px;
       background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(200, 200, 200, 0.3);
+      border: 1px solid rgba(200, 200, 200, 0.25);
       box-shadow: 0 2px 8px rgba(0,0,0,0.02);
     }
     table.excel-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.85rem;
+      font-size: 0.7rem;
       font-family: 'Segoe UI', sans-serif;
       background: #fcfaf7;
     }
     table.excel-table th {
-      padding: 0.6rem 0.8rem;
-      text-align: left;
+      padding: 2px 4px;
+      text-align: center;
       font-weight: 700;
-      font-size: 0.75rem;
+      font-size: 0.6rem;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.02em;
       color: #1a2a3a;
       border-bottom: 2px solid #d0c8bc;
       background: #ede8e0;
+      vertical-align: middle;
     }
     table.excel-table td {
-      padding: 0.4rem 0.6rem;
+      padding: 2px 4px;
       border-bottom: 1px solid #e0dad2;
       vertical-align: middle;
       background: #fcfaf7;
+      text-align: center;
     }
     table.excel-table tr:nth-child(even) td {
       background: #f8f5f0;
@@ -249,84 +251,112 @@
     table.excel-table tr:hover td {
       background: #f0ebe3;
     }
-    table.excel-table .col-alumno {
+    .col-num {
+      width: 25px;
       background: #f5f0ea;
+      border-right: 1px solid #d0c8bc;
       font-weight: 600;
-      border-right: 1px solid #d0c8bc;
+      color: #4a5a6a;
     }
-    table.excel-table .col-num {
+    .col-alumno {
+      min-width: 120px;
+      max-width: 140px;
       background: #f5f0ea;
-      text-align: center;
       border-right: 1px solid #d0c8bc;
+      text-align: left;
     }
-    table.excel-table .col-actions {
-      background: #f5f0ea;
-      text-align: center;
-      border-left: 1px solid #d0c8bc;
+    .col-alumno input {
+      width: 100%;
+      border: 1px solid transparent;
+      background: transparent;
+      padding: 1px 2px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      outline: none;
+      font-family: 'Segoe UI', sans-serif;
     }
-    table.excel-table .col-promedio {
-      background: #e8f0e0;
+    .col-alumno input:hover { border-color: #c0b8ac; background: rgba(255,255,255,0.3); }
+    .col-alumno input:focus { border-color: #2c4a6e; background: #fff; }
+
+    .col-actividad {
+      min-width: 22px;
+      max-width: 30px;
+      padding: 1px 2px;
+      background: #faf7f2;
+    }
+    .act-vertical {
+      writing-mode: vertical-rl;
+      text-orientation: upright;
+      font-size: 0.55rem;
       font-weight: 700;
+      color: #1a2a3a;
+      letter-spacing: 0.08em;
+      padding: 2px 0;
+      line-height: 1.1;
+      display: inline-block;
+      max-height: 120px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 100%;
       text-align: center;
-      border-left: 1px solid #d0c8bc;
     }
-    table.excel-table .act-header {
+    .act-header {
       background: #e8e0d5;
       border-bottom: 2px solid #c0b8ac;
+      vertical-align: middle;
     }
-    table.excel-table .act-header button {
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      font-size: 0.8rem;
-      padding: 0 0.2rem;
-      opacity: 0.6;
+    .act-header .action-icon {
+      font-size: 0.6rem;
+      padding: 0 2px;
     }
-    table.excel-table .act-header button:hover { opacity: 1; }
 
-    .table-input {
-      background: rgba(255,255,255,0.7);
-      border: 1px solid #d0c8bc;
-      border-radius: 6px;
-      padding: 0.2rem 0.4rem;
-      font: inherit;
-      font-size: 0.85rem;
-      width: 70px;
+    .col-calif input {
+      width: 38px;
       text-align: center;
-      backdrop-filter: blur(2px);
+      padding: 1px 2px;
+      border: 1px solid #d0c8bc;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.6);
+      font-size: 0.7rem;
+      font-weight: 600;
       outline: none;
-      transition: 0.1s;
       font-family: 'Segoe UI', sans-serif;
-      box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);
+      transition: 0.1s;
     }
-    .table-input:focus {
+    .col-calif input:focus {
       border-color: #2c4a6e;
       background: #fff;
-      box-shadow: 0 0 0 2px rgba(44,74,110,0.1);
+      box-shadow: 0 0 0 2px rgba(44,74,110,0.08);
     }
-    .table-input.name-input {
-      width: 100%;
-      min-width: 120px;
-      text-align: left;
-      background: transparent;
-      border: 1px solid transparent;
+
+    .col-promedio {
+      min-width: 30px;
+      max-width: 40px;
+      background: #e8f0e0;
+      font-weight: 800;
+      text-align: center;
+      border-left: 1px solid #d0c8bc;
+      font-size: 0.75rem;
+      color: #1a3a2a;
     }
-    .table-input.name-input:hover {
-      border-color: #c0b8ac;
-      background: rgba(255,255,255,0.3);
+    .col-acciones {
+      min-width: 24px;
+      max-width: 30px;
+      background: #f5f0ea;
+      border-left: 1px solid #d0c8bc;
     }
-    .table-input.name-input:focus {
-      border-color: #2c4a6e;
-      background: #fff;
+    .col-acciones .action-icon {
+      font-size: 0.7rem;
+      padding: 1px 2px;
     }
 
     .action-icon {
       background: transparent;
       border: none;
       cursor: pointer;
-      font-size: 0.9rem;
-      padding: 0.1rem 0.3rem;
-      border-radius: 6px;
+      border-radius: 4px;
       transition: 0.1s;
       color: #4a5a6a;
     }
@@ -617,6 +647,9 @@
       .login-grid { grid-template-columns: 1fr; }
       .field-row { grid-template-columns: 1fr; }
       .topbar .right { position: static; justify-content: center; margin-top: 0.4rem; }
+      .col-alumno { min-width: 90px; max-width: 110px; }
+      .col-calif input { width: 30px; }
+      .act-vertical { font-size: 0.45rem; }
     }
   </style>
 </head>
@@ -1051,7 +1084,7 @@ function logout() {
 }
 
 /* ═══════════════════════════════════════════════════
-   MAESTRO - TABS (Nuevo orden: Listas, Asistencia, Alumnos...)
+   MAESTRO - TABS
    ═══════════════════════════════════════════════════ */
 let teacherTab = 'listas';
 const TEACHER_TABS = [
@@ -1095,7 +1128,7 @@ function renderTeacherBody() {
   else if (teacherTab === 'configuracion') c.innerHTML = viewConfiguracion();
 }
 
-/* ─── LISTAS (con estilo Excel y promedios redondeados) ─── */
+/* ─── LISTAS (con estilo Excel compacto y promedios redondeados) ─── */
 let currentGrado = '1';
 let currentGrupo = 'A';
 
@@ -1113,32 +1146,35 @@ function viewListas() {
   if (!group || students.length === 0) {
     tableHtml = `<div class="empty-state"><div class="big">📊</div><p>No hay alumnos en este grupo. Agrega alumnos en la pestaña "Alumnos".</p></div>`;
   } else {
-    // Encabezados de actividades
-    const headerCols = activities.map(a => `
-      <th class="act-header" style="min-width:80px;">
-        <div style="display:flex; align-items:center; gap:4px; justify-content:center;">
-          <span>${esc(a.name)}</span>
-          <button class="action-icon" onclick="editActividad('${group.id}','${a.id}')" title="Editar">✏️</button>
-          <button class="action-icon danger" onclick="deleteActividad('${group.id}','${a.id}')" title="Eliminar">🗑️</button>
-        </div>
-      </th>
-    `).join('');
+    // Encabezados de actividades con texto vertical
+    const headerCols = activities.map(a => {
+      const nameVertical = a.name.split('').join('\n'); // cada letra en línea separada
+      return `
+        <th class="act-header col-actividad">
+          <div class="act-vertical" title="${esc(a.name)}">${esc(nameVertical)}</div>
+          <div style="display:flex; justify-content:center; gap:2px; margin-top:2px;">
+            <button class="action-icon" onclick="editActividad('${group.id}','${a.id}')" title="Editar">✏️</button>
+            <button class="action-icon danger" onclick="deleteActividad('${group.id}','${a.id}')" title="Eliminar">🗑️</button>
+          </div>
+        </th>
+      `;
+    }).join('');
 
     // Filas de alumnos
     const rows = students.map((s, idx) => {
       const cells = activities.map(a => {
         const val = (group.grades||{})[s.id+'_'+a.id] || '';
-        return `<td style="text-align:center;"><input class="table-input" type="text" value="${esc(val)}" placeholder="–" onchange="setGrade('${group.id}','${s.id}','${a.id}',this.value)"></td>`;
+        return `<td class="col-calif"><input class="grade-input" type="text" value="${esc(val)}" placeholder="–" onchange="setGrade('${group.id}','${s.id}','${a.id}',this.value)"></td>`;
       }).join('');
       const avg = calcAvg(group, s.id);
-      const avgDisplay = avg !== null ? avg.toFixed(1) : '–';
+      const avgDisplay = avg !== null ? Math.round(avg) : '–';
       return `<tr>
         <td class="col-num">${idx+1}</td>
-        <td class="col-alumno"><input class="table-input name-input" type="text" value="${esc(s.name)}" onchange="editStudentName('${group.id}','${s.id}',this.value)" placeholder="Nombre"></td>
+        <td class="col-alumno"><input class="name-input" type="text" value="${esc(s.name)}" onchange="editStudentName('${group.id}','${s.id}',this.value)" placeholder="Nombre"></td>
         ${cells}
-        <td class="col-promedio">${avgDisplay}</td>
-        <td class="col-actions">
-          <button class="action-icon danger" onclick="deleteStudent('${group.id}','${s.id}')" title="Eliminar alumno">🗑️</button>
+        <td class="col-promedio" id="avg_${group.id}_${s.id}">${avgDisplay}</td>
+        <td class="col-acciones">
+          <button class="action-icon danger" onclick="deleteStudent('${group.id}','${s.id}')" title="Eliminar">🗑️</button>
         </td>
       </tr>`;
     }).join('');
@@ -1147,11 +1183,11 @@ function viewListas() {
       <div class="table-wrap">
         <table class="excel-table">
           <thead><tr>
-            <th style="width:30px; text-align:center;">#</th>
-            <th style="min-width:160px;">Alumno</th>
+            <th class="col-num">#</th>
+            <th class="col-alumno">Alumno</th>
             ${headerCols}
-            <th style="width:70px; text-align:center; background:#e0d8cc;">Prom.</th>
-            <th style="width:40px;"></th>
+            <th class="col-promedio" style="background:#d8d0c4;">Prom.</th>
+            <th class="col-acciones"></th>
           </tr></thead>
           <tbody>${rows}</tbody>
         </table>
@@ -1161,17 +1197,17 @@ function viewListas() {
 
   const actions = `
     <div style="display:flex; gap:0.8rem; flex-wrap:wrap; align-items:center; margin-top:0.8rem;">
-      <input id="newActName" type="text" placeholder="Nueva actividad" style="flex:1; min-width:180px; padding:0.4rem 0.8rem; border-radius:40px; border:1px solid rgba(200,200,200,0.4); background:rgba(255,255,255,0.3); backdrop-filter:blur(4px); font:inherit; outline:none; font-family:'Segoe UI',sans-serif;">
-      <button class="btn btn-green" onclick="addActividad('${group?group.id:''}')">➕ Agregar actividad</button>
-      <button class="btn btn-primary" onclick="modalAddStudent()">👤 Agregar alumno</button>
-      <button class="btn btn-primary" onclick="save(); toast('Cambios guardados','success');">💾 Guardar cambios</button>
+      <input id="newActName" type="text" placeholder="Nueva actividad" style="flex:1; min-width:150px; padding:0.3rem 0.6rem; border-radius:40px; border:1px solid rgba(200,200,200,0.4); background:rgba(255,255,255,0.3); backdrop-filter:blur(4px); font:inherit; outline:none; font-size:0.8rem; font-family:'Segoe UI',sans-serif;">
+      <button class="btn btn-green btn-small" onclick="addActividad('${group?group.id:''}')">➕ Actividad</button>
+      <button class="btn btn-primary btn-small" onclick="modalAddStudent()">👤 Alumno</button>
+      <button class="btn btn-primary btn-small" onclick="save(); toast('Cambios guardados','success');">💾 Guardar</button>
     </div>
   `;
 
   return `
     <div class="panel tinted">
       <h3>📋 Listas</h3>
-      <p class="sub">Tabla de calificaciones por grupo. Edita nombres y actividades directamente. El promedio se redondea a un decimal.</p>
+      <p class="sub">Tabla de calificaciones por grupo. Los promedios se redondean al entero más cercano.</p>
     </div>
     <div class="filter-bar">
       <label>Grado:</label>
@@ -1183,7 +1219,7 @@ function viewListas() {
         ${grupos.map(g => `<option value="${g}" ${g===currentGrupo?'selected':''}>${g}</option>`).join('')}
       </select>
     </div>
-    <div class="panel" style="padding:0.8rem 1rem;">
+    <div class="panel" style="padding:0.5rem 0.6rem;">
       ${tableHtml}
       ${group ? actions : `<p class="sub" style="margin-top:0.6rem;">Selecciona un grado y grupo válido.</p>`}
     </div>
@@ -1228,11 +1264,10 @@ function setGrade(gid, sid, aid, val) {
   if (val==='') delete g.grades[key];
   else g.grades[key] = val;
   save();
-  // Actualizar el promedio en la tabla sin recargar toda la vista
+  // Actualizar promedio redondeado en la tabla
   const avg = calcAvg(g, sid);
-  const avgCell = document.querySelector(`#avg_${gid}_${sid}`);
-  if (avgCell) avgCell.textContent = avg !== null ? avg.toFixed(1) : '–';
-  // Si la celda no existe, se actualizará al recargar
+  const avgCell = document.getElementById(`avg_${gid}_${sid}`);
+  if (avgCell) avgCell.textContent = avg !== null ? Math.round(avg) : '–';
 }
 
 function editStudentName(gid, sid, newName) {
@@ -1309,7 +1344,7 @@ function saveNewStudent() {
   toast(`Alumno agregado con código ${code}`,'success');
 }
 
-/* ─── ASISTENCIA (sin cambios en funcionalidad) ─── */
+/* ─── ASISTENCIA ─── */
 let attendanceDate = todayStr();
 let attendanceGrado = '1';
 let attendanceGrupo = 'A';
@@ -2106,7 +2141,7 @@ function studentCalif() {
         <tbody>${rows}</tbody>
       </table></div>
       <div style="margin-top:0.8rem; display:flex; align-items:center; gap:0.6rem;">
-        <strong>Promedio:</strong> ${avg!==null?avg.toFixed(1):'—'}
+        <strong>Promedio:</strong> ${avg!==null?Math.round(avg):'—'}
       </div>
     </div>
   `;
@@ -2240,7 +2275,7 @@ function parentCalif() {
         <thead><tr><th>Actividad</th><th class="num">Calificación</th></tr></thead>
         <tbody>${rows}</tbody>
       </table></div>
-      <div style="margin-top:0.8rem;"><strong>Promedio:</strong> ${avg!==null?avg.toFixed(1):'—'}</div>
+      <div style="margin-top:0.8rem;"><strong>Promedio:</strong> ${avg!==null?Math.round(avg):'—'}</div>
     </div>
   `;
 }
