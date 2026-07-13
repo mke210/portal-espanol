@@ -591,8 +591,8 @@
    ═══════════════════════════════════════════════════ */
 const CONFIG = {
   storeKey: 'portal_espanol_v3',
-  teacherUser: 'profesor',
-  teacherPass: '1234',        // <-- Contraseña del maestro
+  teacherUser: 'admin',          // <--- Usuario actualizado
+  teacherPass: '123456',         // <--- Contraseña actualizada
   firebase: {
     apiKey: "AIzaSyBTmE3176hMCMJqJIhSwDhBIUUA-Wb2hG0",
     authDomain: "portal-espanol-dd4f8.firebaseapp.com",
@@ -899,7 +899,7 @@ function renderLanding() {
           <div class="role-desc">Administra materiales, exámenes y calificaciones</div>
           <div class="field">
             <label>Usuario</label>
-            <input type="text" id="liUser" placeholder="profesor" onkeydown="if(event.key==='Enter')doLoginTeacher()">
+            <input type="text" id="liUser" placeholder="admin" onkeydown="if(event.key==='Enter')doLoginTeacher()">
           </div>
           <div class="field">
             <label>Contraseña</label>
@@ -943,7 +943,6 @@ function renderLanding() {
 // Para resaltar la tarjeta al hacer clic (movimiento)
 let selectedCard = null;
 function selectLoginCard(role) {
-  // Quitar selección anterior
   document.querySelectorAll('.login-card').forEach(el => el.classList.remove('selected'));
   const card = document.getElementById('card' + role.charAt(0).toUpperCase() + role.slice(1));
   if (card) card.classList.add('selected');
