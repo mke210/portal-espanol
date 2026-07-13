@@ -296,10 +296,6 @@
       border-bottom: 2px solid #c0b8ac;
       vertical-align: middle;
     }
-    .act-header .action-icon {
-      font-size: 0.6rem;
-      padding: 0 2px;
-    }
 
     .col-calif input {
       width: 30px;
@@ -322,15 +318,15 @@
     }
 
     .col-promedio {
-      width: 40px;
+      width: 28px; /* Reducido de 40px a 28px */
       background: #e8f0e0;
       font-weight: 800;
       border-left: 1px solid #d0c8bc;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: #1a3a2a;
     }
     .col-acciones {
-      width: 32px;
+      width: 28px;
       background: #f5f0ea;
       border-left: 1px solid #d0c8bc;
     }
@@ -637,8 +633,8 @@
       .col-alumno { width: 100px; }
       .col-actividad { width: 28px; }
       .col-calif input { width: 26px; }
-      .col-promedio { width: 34px; }
-      .col-acciones { width: 28px; }
+      .col-promedio { width: 24px; }
+      .col-acciones { width: 24px; }
     }
   </style>
 </head>
@@ -1117,7 +1113,7 @@ function renderTeacherBody() {
   else if (teacherTab === 'configuracion') c.innerHTML = viewConfiguracion();
 }
 
-/* ─── LISTAS ─── */
+/* ─── LISTAS (con botones de editar/eliminar en la barra inferior) ─── */
 let currentGrado = '1';
 let currentGrupo = 'A';
 
@@ -1135,16 +1131,12 @@ function viewListas() {
   if (!group || students.length === 0) {
     tableHtml = `<div class="empty-state"><div class="big">📊</div><p>No hay alumnos en este grupo. Agrega alumnos en la pestaña "Alumnos".</p></div>`;
   } else {
-    // Encabezados de actividades con texto vertical
+    // Encabezados de actividades con texto vertical (sin botones)
     const headerCols = activities.map(a => {
       const nameVertical = a.name.split('').join('\n');
       return `
         <th class="act-header col-actividad" title="${esc(a.name)}">
           <div class="act-vertical">${esc(nameVertical)}</div>
-          <div style="display:flex; justify-content:center; gap:2px; margin-top:2px;">
-            <button class="action-icon" onclick="editActividad('${group.id}','${a.id}')" title="Editar">✏️</button>
-            <button class="action-icon danger" onclick="deleteActividad('${group.id}','${a.id}')" title="Eliminar">🗑️</button>
-          </div>
         </th>
       `;
     }).join('');
@@ -1184,10 +1176,20 @@ function viewListas() {
     `;
   }
 
+  // Barra de acciones inferior con selector de actividad para editar/eliminar
   const actions = `
-    <div style="display:flex; gap:0.8rem; flex-wrap:wrap; align-items:center; margin-top:0.8rem;">
-      <input id="newActName" type="text" placeholder="Nueva actividad" style="flex:1; min-width:150px; padding:0.3rem 0.6rem; border-radius:40px; border:1px solid rgba(200,200,200,0.4); background:rgba(255,255,255,0.3); backdrop-filter:blur(4px); font:inherit; outline:none; font-size:0.8rem; font-family:'Segoe UI',sans-serif;">
+    <div style="display:flex; gap:0.5rem; flex-wrap:wrap; align-items:center; margin-top:0.8rem;">
+      <input id="newActName" type="text" placeholder="Nueva actividad" style="flex:1; min-width:120px; padding:0.3rem 0.6rem; border-radius:40px; border:1px solid rgba(200,200,200,0.4); background:rgba(255,255,255,0.3); backdrop-filter:blur(4px); font:inherit; outline:none; font-size:0.8rem; font-family:'Segoe UI',sans-serif;">
       <button class="btn btn-green btn-small" onclick="addActividad('${group?group.id:''}')">➕ Actividad</button>
+
+      ${group && activities.length ? `
+        <select id="actSelector" style="padding:0.3rem 0.6rem; border-radius:40px; border:1px solid rgba(200,200,200,0.4); background:rgba(255,255,255,0.3); font-size:0.8rem; outline:none;">
+          ${activities.map(a => `<option value="${a.id}">${esc(a.name)}</option>`).join('')}
+        </select>
+        <button class="btn btn-small" onclick="editSelectedActividad('${group.id}')">✏️ Editar</button>
+        <button class="btn btn-red btn-small" onclick="deleteSelectedActividad('${group.id}')">🗑️ Eliminar</button>
+      ` : ''}
+
       <button class="btn btn-primary btn-small" onclick="modalAddStudent()">👤 Alumno</button>
       <button class="btn btn-primary btn-small" onclick="save(); toast('Cambios guardados','success');">💾 Guardar</button>
     </div>
@@ -1215,7 +1217,39 @@ function viewListas() {
   `;
 }
 
-// ─── Funciones auxiliares de Listas ───
+// ─── Nuevas funciones para editar/eliminar desde el selector ───
+function editSelectedActividad(gid) {
+  const selector = document.getElementById('actSelector');
+  if (!selector) { toast('No hay actividades','error'); return; }
+  const aid = selector.value;
+  if (!aid) { toast('Selecciona una actividad','error'); return; }
+  const g = state.groups.find(x=>x.id===gid);
+  if (!g) return;
+  const a = (g.activities||[]).find(x=>x.id===aid);
+  if (!a) return;
+  const newName = prompt('Nuevo nombre para la actividad:', a.name);
+  if (newName && newName.trim()) {
+    a.name = newName.trim();
+    save(); renderTeacherBody();
+    toast('Actividad actualizada','success');
+  }
+}
+
+function deleteSelectedActividad(gid) {
+  const selector = document.getElementById('actSelector');
+  if (!selector) { toast('No hay actividades','error'); return; }
+  const aid = selector.value;
+  if (!aid) { toast('Selecciona una actividad','error'); return; }
+  if (!confirm('¿Eliminar esta actividad y todas sus calificaciones?')) return;
+  const g = state.groups.find(x=>x.id===gid);
+  if (!g) return;
+  g.activities = (g.activities||[]).filter(x=>x.id!==aid);
+  if (g.grades) Object.keys(g.grades).forEach(k => { if (k.endsWith('_'+aid)) delete g.grades[k]; });
+  save(); renderTeacherBody();
+  toast('Actividad eliminada','success');
+}
+
+// ─── Funciones auxiliares de Listas (agregar, editar nombre, etc.) ───
 function addActividad(gid) {
   if (!gid) { toast('Selecciona un grupo primero','error'); return; }
   const inp = document.getElementById('newActName');
@@ -1227,22 +1261,6 @@ function addActividad(gid) {
   g.activities.push({ id:'a_'+uid(), name });
   save(); renderTeacherBody();
   toast(`Actividad "${name}" agregada`,'success');
-}
-
-function editActividad(gid, aid) {
-  const g = state.groups.find(x=>x.id===gid); if (!g) return;
-  const a = (g.activities||[]).find(x=>x.id===aid); if (!a) return;
-  const newName = prompt('Nuevo nombre para la actividad:', a.name);
-  if (newName && newName.trim()) { a.name = newName.trim(); save(); renderTeacherBody(); toast('Actividad actualizada','success'); }
-}
-
-function deleteActividad(gid, aid) {
-  if (!confirm('¿Eliminar esta actividad y todas sus calificaciones?')) return;
-  const g = state.groups.find(x=>x.id===gid); if (!g) return;
-  g.activities = (g.activities||[]).filter(x=>x.id!==aid);
-  if (g.grades) Object.keys(g.grades).forEach(k => { if (k.endsWith('_'+aid)) delete g.grades[k]; });
-  save(); renderTeacherBody();
-  toast('Actividad eliminada','success');
 }
 
 function setGrade(gid, sid, aid, val) {
