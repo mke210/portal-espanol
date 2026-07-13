@@ -225,25 +225,17 @@
       font-size: 0.7rem;
       font-family: 'Segoe UI', sans-serif;
       background: #fcfaf7;
+      table-layout: fixed;
     }
-    table.excel-table th {
-      padding: 2px 4px;
-      text-align: center;
-      font-weight: 700;
-      font-size: 0.6rem;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-      color: #1a2a3a;
-      border-bottom: 2px solid #d0c8bc;
-      background: #ede8e0;
-      vertical-align: middle;
-    }
+    table.excel-table th,
     table.excel-table td {
       padding: 2px 4px;
       border-bottom: 1px solid #e0dad2;
       vertical-align: middle;
-      background: #fcfaf7;
       text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     table.excel-table tr:nth-child(even) td {
       background: #f8f5f0;
@@ -252,15 +244,14 @@
       background: #f0ebe3;
     }
     .col-num {
-      width: 25px;
+      width: 28px;
       background: #f5f0ea;
       border-right: 1px solid #d0c8bc;
       font-weight: 600;
       color: #4a5a6a;
     }
     .col-alumno {
-      min-width: 120px;
-      max-width: 140px;
+      width: 140px;
       background: #f5f0ea;
       border-right: 1px solid #d0c8bc;
       text-align: left;
@@ -279,19 +270,16 @@
     .col-alumno input:focus { border-color: #2c4a6e; background: #fff; }
 
     .col-actividad {
-      min-width: 22px;
-      max-width: 30px;
-      padding: 1px 2px;
+      width: 32px;
       background: #faf7f2;
+      padding: 2px 0;
     }
     .act-vertical {
       writing-mode: vertical-rl;
       text-orientation: upright;
       font-size: 0.55rem;
       font-weight: 700;
-      color: #1a2a3a;
       letter-spacing: 0.08em;
-      padding: 2px 0;
       line-height: 1.1;
       display: inline-block;
       max-height: 120px;
@@ -300,6 +288,8 @@
       white-space: nowrap;
       width: 100%;
       text-align: center;
+      color: #1a2a3a;
+      padding: 0 1px;
     }
     .act-header {
       background: #e8e0d5;
@@ -312,7 +302,7 @@
     }
 
     .col-calif input {
-      width: 38px;
+      width: 30px;
       text-align: center;
       padding: 1px 2px;
       border: 1px solid #d0c8bc;
@@ -332,18 +322,15 @@
     }
 
     .col-promedio {
-      min-width: 30px;
-      max-width: 40px;
+      width: 40px;
       background: #e8f0e0;
       font-weight: 800;
-      text-align: center;
       border-left: 1px solid #d0c8bc;
       font-size: 0.75rem;
       color: #1a3a2a;
     }
     .col-acciones {
-      min-width: 24px;
-      max-width: 30px;
+      width: 32px;
       background: #f5f0ea;
       border-left: 1px solid #d0c8bc;
     }
@@ -647,9 +634,11 @@
       .login-grid { grid-template-columns: 1fr; }
       .field-row { grid-template-columns: 1fr; }
       .topbar .right { position: static; justify-content: center; margin-top: 0.4rem; }
-      .col-alumno { min-width: 90px; max-width: 110px; }
-      .col-calif input { width: 30px; }
-      .act-vertical { font-size: 0.45rem; }
+      .col-alumno { width: 100px; }
+      .col-actividad { width: 28px; }
+      .col-calif input { width: 26px; }
+      .col-promedio { width: 34px; }
+      .col-acciones { width: 28px; }
     }
   </style>
 </head>
@@ -1128,7 +1117,7 @@ function renderTeacherBody() {
   else if (teacherTab === 'configuracion') c.innerHTML = viewConfiguracion();
 }
 
-/* ─── LISTAS (con estilo Excel compacto y promedios redondeados) ─── */
+/* ─── LISTAS ─── */
 let currentGrado = '1';
 let currentGrupo = 'A';
 
@@ -1148,10 +1137,10 @@ function viewListas() {
   } else {
     // Encabezados de actividades con texto vertical
     const headerCols = activities.map(a => {
-      const nameVertical = a.name.split('').join('\n'); // cada letra en línea separada
+      const nameVertical = a.name.split('').join('\n');
       return `
-        <th class="act-header col-actividad">
-          <div class="act-vertical" title="${esc(a.name)}">${esc(nameVertical)}</div>
+        <th class="act-header col-actividad" title="${esc(a.name)}">
+          <div class="act-vertical">${esc(nameVertical)}</div>
           <div style="display:flex; justify-content:center; gap:2px; margin-top:2px;">
             <button class="action-icon" onclick="editActividad('${group.id}','${a.id}')" title="Editar">✏️</button>
             <button class="action-icon danger" onclick="deleteActividad('${group.id}','${a.id}')" title="Eliminar">🗑️</button>
@@ -1574,10 +1563,7 @@ function saveEditStudent(gid, sid) {
   }
 }
 
-/* ─── MATERIALES, TAREAS, EXÁMENES, CONFIGURACIÓN (sin cambios) ─── */
-// ... (el resto del código se mantiene igual que en la versión anterior)
-
-// ─── MATERIALES ───
+/* ─── MATERIALES ─── */
 function viewMateriales() {
   const head = `
     <div class="panel tinted">
@@ -1665,7 +1651,7 @@ function deleteMaterial(id) {
   save(); renderTeacherBody(); toast('Material eliminado','success');
 }
 
-// ─── TAREAS ───
+/* ─── TAREAS ─── */
 let _taskAttachment = null;
 function viewTareas() {
   const head = `
@@ -1777,7 +1763,7 @@ function deleteTarea(id) {
   save(); renderTeacherBody(); toast('Tarea eliminada','success');
 }
 
-// ─── EXÁMENES ───
+/* ─── EXÁMENES ─── */
 function viewExamenes(){
   const head = `
     <div class="panel tinted">
@@ -1904,7 +1890,7 @@ function verResultadosExamen(id){
   `);
 }
 
-// ─── CONFIGURACIÓN ───
+/* ─── CONFIGURACIÓN ─── */
 function viewConfiguracion(){
   const total = state.groups.reduce((a,g)=>a+(g.students||[]).length,0);
   return `
@@ -1990,7 +1976,7 @@ function removeGroup(g){
   save(); renderTeacherBody(); toast('Grupo eliminado','success');
 }
 
-// ─── RESPALDO ───
+/* ─── RESPALDO ─── */
 function exportBackup() {
   const data = {
     config: state.config,
