@@ -31,27 +31,29 @@
     }
     .topbar {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 0.8rem;
+      justify-content: center;
+      gap: 0.3rem;
       padding-bottom: 0.8rem;
       border-bottom: 1px solid rgba(255, 255, 255, 0.25);
       margin-bottom: 1.2rem;
+      position: relative;
     }
     .topbar .brand {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 0.8rem;
+      gap: 0.2rem;
     }
     .topbar .brand .logo {
-      width: 50px;
-      height: 50px;
+      width: 60px;
+      height: 60px;
       background: rgba(255, 255, 255, 0.2);
       border-radius: 20px;
       display: grid;
       place-items: center;
-      font-size: 2rem;
+      font-size: 2.4rem;
       backdrop-filter: blur(4px);
       border: 1px solid rgba(255,255,255,0.2);
       box-shadow: 0 4px 12px rgba(0,0,0,0.02);
@@ -66,6 +68,9 @@
       margin: 0;
     }
     .topbar .right {
+      position: absolute;
+      right: 0;
+      top: 0;
       display: flex;
       align-items: center;
       gap: 0.8rem;
@@ -206,69 +211,127 @@
       font-family: 'Segoe UI', sans-serif;
     }
 
+    /* ─── TABLA ESTILO EXCEL ─── */
     .table-wrap {
       overflow-x: auto;
-      border-radius: 24px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(200, 200, 200, 0.3);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
     }
-    table.glass-table {
+    table.excel-table {
       width: 100%;
       border-collapse: collapse;
       font-size: 0.85rem;
-      min-width: 600px;
       font-family: 'Segoe UI', sans-serif;
+      background: #fcfaf7;
     }
-    table.glass-table th {
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(4px);
+    table.excel-table th {
       padding: 0.6rem 0.8rem;
       text-align: left;
       font-weight: 700;
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.04em;
       color: #1a2a3a;
-      border-bottom: 1px solid rgba(255,255,255,0.15);
+      border-bottom: 2px solid #d0c8bc;
+      background: #ede8e0;
     }
-    table.glass-table td {
-      padding: 0.5rem 0.8rem;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+    table.excel-table td {
+      padding: 0.4rem 0.6rem;
+      border-bottom: 1px solid #e0dad2;
       vertical-align: middle;
+      background: #fcfaf7;
     }
-    table.glass-table tr:last-child td { border-bottom: none; }
-    table.glass-table tr:hover td { background: rgba(255,255,255,0.08); }
+    table.excel-table tr:nth-child(even) td {
+      background: #f8f5f0;
+    }
+    table.excel-table tr:hover td {
+      background: #f0ebe3;
+    }
+    table.excel-table .col-alumno {
+      background: #f5f0ea;
+      font-weight: 600;
+      border-right: 1px solid #d0c8bc;
+    }
+    table.excel-table .col-num {
+      background: #f5f0ea;
+      text-align: center;
+      border-right: 1px solid #d0c8bc;
+    }
+    table.excel-table .col-actions {
+      background: #f5f0ea;
+      text-align: center;
+      border-left: 1px solid #d0c8bc;
+    }
+    table.excel-table .col-promedio {
+      background: #e8f0e0;
+      font-weight: 700;
+      text-align: center;
+      border-left: 1px solid #d0c8bc;
+    }
+    table.excel-table .act-header {
+      background: #e8e0d5;
+      border-bottom: 2px solid #c0b8ac;
+    }
+    table.excel-table .act-header button {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 0.8rem;
+      padding: 0 0.2rem;
+      opacity: 0.6;
+    }
+    table.excel-table .act-header button:hover { opacity: 1; }
 
     .table-input {
-      background: rgba(255,255,255,0.3);
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 14px;
-      padding: 0.3rem 0.6rem;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid #d0c8bc;
+      border-radius: 6px;
+      padding: 0.2rem 0.4rem;
       font: inherit;
       font-size: 0.85rem;
-      width: 100%;
-      min-width: 60px;
+      width: 70px;
+      text-align: center;
       backdrop-filter: blur(2px);
       outline: none;
       transition: 0.1s;
       font-family: 'Segoe UI', sans-serif;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);
     }
-    .table-input:focus { border-color: #2c4a6e; background: rgba(255,255,255,0.6); }
-    .table-input.small { width: 70px; text-align: center; }
+    .table-input:focus {
+      border-color: #2c4a6e;
+      background: #fff;
+      box-shadow: 0 0 0 2px rgba(44,74,110,0.1);
+    }
+    .table-input.name-input {
+      width: 100%;
+      min-width: 120px;
+      text-align: left;
+      background: transparent;
+      border: 1px solid transparent;
+    }
+    .table-input.name-input:hover {
+      border-color: #c0b8ac;
+      background: rgba(255,255,255,0.3);
+    }
+    .table-input.name-input:focus {
+      border-color: #2c4a6e;
+      background: #fff;
+    }
 
     .action-icon {
       background: transparent;
       border: none;
       cursor: pointer;
-      font-size: 1rem;
-      padding: 0.2rem 0.3rem;
-      border-radius: 8px;
+      font-size: 0.9rem;
+      padding: 0.1rem 0.3rem;
+      border-radius: 6px;
       transition: 0.1s;
-      color: #2c3e50;
+      color: #4a5a6a;
     }
-    .action-icon:hover { background: rgba(255,255,255,0.2); }
-    .action-icon.danger:hover { background: rgba(177, 62, 69, 0.15); color: #912e34; }
+    .action-icon:hover { background: rgba(0,0,0,0.04); }
+    .action-icon.danger:hover { background: rgba(177, 62, 69, 0.1); color: #912e34; }
 
     .empty-state {
       text-align: center;
@@ -434,7 +497,6 @@
     }
     .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
 
-    /* ─── NUEVO LOGIN CON TARJETAS ─── */
     .login-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -554,6 +616,7 @@
       .topbar .brand h1 { font-size: 1.2rem; }
       .login-grid { grid-template-columns: 1fr; }
       .field-row { grid-template-columns: 1fr; }
+      .topbar .right { position: static; justify-content: center; margin-top: 0.4rem; }
     }
   </style>
 </head>
@@ -869,7 +932,7 @@ function render() {
   }
 }
 
-/* ─── NUEVO LANDING CON TARJETAS (sin título) ─── */
+/* ─── LANDING ─── */
 function renderLanding() {
   return `
     <div style="max-width:1000px; margin:0 auto;">
@@ -922,7 +985,6 @@ function renderLanding() {
   `;
 }
 
-// Para resaltar la tarjeta al hacer clic (movimiento)
 let selectedCard = null;
 function selectLoginCard(role) {
   document.querySelectorAll('.login-card').forEach(el => el.classList.remove('selected'));
@@ -931,7 +993,6 @@ function selectLoginCard(role) {
   selectedCard = role;
 }
 
-// ─── LOGIN FUNCIONES ───
 function doLoginTeacher() {
   const user = ($('#liUser')?.value||'').trim();
   const pass = ($('#liPass')?.value||'').trim();
@@ -990,13 +1051,13 @@ function logout() {
 }
 
 /* ═══════════════════════════════════════════════════
-   MAESTRO - TABS (todo igual)
+   MAESTRO - TABS (Nuevo orden: Listas, Asistencia, Alumnos...)
    ═══════════════════════════════════════════════════ */
 let teacherTab = 'listas';
 const TEACHER_TABS = [
   {id:'listas', label:'📋 Listas'},
-  {id:'alumnos', label:'👥 Alumnos'},
   {id:'asistencia', label:'📋 Asistencia'},
+  {id:'alumnos', label:'👥 Alumnos'},
   {id:'materiales', label:'📁 Materiales'},
   {id:'tareas', label:'📌 Tareas'},
   {id:'examenes', label:'📝 Exámenes'},
@@ -1026,17 +1087,18 @@ function setTeacherTab(id) { teacherTab = id; renderTeacherTabs(); }
 function renderTeacherBody() {
   const c = document.getElementById('teacherBody');
   if (teacherTab === 'listas') c.innerHTML = viewListas();
-  else if (teacherTab === 'alumnos') c.innerHTML = viewAlumnos();
   else if (teacherTab === 'asistencia') c.innerHTML = viewAsistencia();
+  else if (teacherTab === 'alumnos') c.innerHTML = viewAlumnos();
   else if (teacherTab === 'materiales') c.innerHTML = viewMateriales();
   else if (teacherTab === 'tareas') c.innerHTML = viewTareas();
   else if (teacherTab === 'examenes') c.innerHTML = viewExamenes();
   else if (teacherTab === 'configuracion') c.innerHTML = viewConfiguracion();
 }
 
-/* ─── LISTAS ─── */
+/* ─── LISTAS (con estilo Excel y promedios redondeados) ─── */
 let currentGrado = '1';
 let currentGrupo = 'A';
+
 function viewListas() {
   const grados = state.config.grades;
   const grupos = state.config.groups;
@@ -1049,11 +1111,12 @@ function viewListas() {
 
   let tableHtml = '';
   if (!group || students.length === 0) {
-    tableHtml = `<div class="empty-state"><div class="big">👤</div><p>No hay alumnos en este grupo. Agrega alumnos en la pestaña "Alumnos".</p></div>`;
+    tableHtml = `<div class="empty-state"><div class="big">📊</div><p>No hay alumnos en este grupo. Agrega alumnos en la pestaña "Alumnos".</p></div>`;
   } else {
+    // Encabezados de actividades
     const headerCols = activities.map(a => `
-      <th style="min-width:100px;">
-        <div style="display:flex; align-items:center; gap:4px;">
+      <th class="act-header" style="min-width:80px;">
+        <div style="display:flex; align-items:center; gap:4px; justify-content:center;">
           <span>${esc(a.name)}</span>
           <button class="action-icon" onclick="editActividad('${group.id}','${a.id}')" title="Editar">✏️</button>
           <button class="action-icon danger" onclick="deleteActividad('${group.id}','${a.id}')" title="Eliminar">🗑️</button>
@@ -1061,19 +1124,20 @@ function viewListas() {
       </th>
     `).join('');
 
+    // Filas de alumnos
     const rows = students.map((s, idx) => {
       const cells = activities.map(a => {
         const val = (group.grades||{})[s.id+'_'+a.id] || '';
-        return `<td><input class="table-input small" type="text" value="${esc(val)}" placeholder="–" onchange="setGrade('${group.id}','${s.id}','${a.id}',this.value)"></td>`;
+        return `<td style="text-align:center;"><input class="table-input" type="text" value="${esc(val)}" placeholder="–" onchange="setGrade('${group.id}','${s.id}','${a.id}',this.value)"></td>`;
       }).join('');
+      const avg = calcAvg(group, s.id);
+      const avgDisplay = avg !== null ? avg.toFixed(1) : '–';
       return `<tr>
-        <td style="width:30px; text-align:center; opacity:0.5;">${idx+1}</td>
-        <td style="min-width:160px;">
-          <input class="table-input" type="text" value="${esc(s.name)}" onchange="editStudentName('${group.id}','${s.id}',this.value)" placeholder="Nombre">
-          <div style="font-size:0.6rem; opacity:0.4;">🔑 ${esc(s.code || s.id)}</div>
-        </td>
+        <td class="col-num">${idx+1}</td>
+        <td class="col-alumno"><input class="table-input name-input" type="text" value="${esc(s.name)}" onchange="editStudentName('${group.id}','${s.id}',this.value)" placeholder="Nombre"></td>
         ${cells}
-        <td style="text-align:center;">
+        <td class="col-promedio">${avgDisplay}</td>
+        <td class="col-actions">
           <button class="action-icon danger" onclick="deleteStudent('${group.id}','${s.id}')" title="Eliminar alumno">🗑️</button>
         </td>
       </tr>`;
@@ -1081,12 +1145,13 @@ function viewListas() {
 
     tableHtml = `
       <div class="table-wrap">
-        <table class="glass-table">
+        <table class="excel-table">
           <thead><tr>
-            <th style="width:30px;">#</th>
+            <th style="width:30px; text-align:center;">#</th>
             <th style="min-width:160px;">Alumno</th>
             ${headerCols}
-            <th style="width:50px;"></th>
+            <th style="width:70px; text-align:center; background:#e0d8cc;">Prom.</th>
+            <th style="width:40px;"></th>
           </tr></thead>
           <tbody>${rows}</tbody>
         </table>
@@ -1096,7 +1161,7 @@ function viewListas() {
 
   const actions = `
     <div style="display:flex; gap:0.8rem; flex-wrap:wrap; align-items:center; margin-top:0.8rem;">
-      <input id="newActName" type="text" placeholder="Nueva actividad" style="flex:1; min-width:180px; padding:0.4rem 0.8rem; border-radius:40px; border:1px solid rgba(255,255,255,0.2); background:rgba(255,255,255,0.2); backdrop-filter:blur(4px); font:inherit; outline:none; font-family:'Segoe UI',sans-serif;">
+      <input id="newActName" type="text" placeholder="Nueva actividad" style="flex:1; min-width:180px; padding:0.4rem 0.8rem; border-radius:40px; border:1px solid rgba(200,200,200,0.4); background:rgba(255,255,255,0.3); backdrop-filter:blur(4px); font:inherit; outline:none; font-family:'Segoe UI',sans-serif;">
       <button class="btn btn-green" onclick="addActividad('${group?group.id:''}')">➕ Agregar actividad</button>
       <button class="btn btn-primary" onclick="modalAddStudent()">👤 Agregar alumno</button>
       <button class="btn btn-primary" onclick="save(); toast('Cambios guardados','success');">💾 Guardar cambios</button>
@@ -1106,7 +1171,7 @@ function viewListas() {
   return `
     <div class="panel tinted">
       <h3>📋 Listas</h3>
-      <p class="sub">Tabla de calificaciones por grupo. Edita nombres de alumnos y actividades directamente.</p>
+      <p class="sub">Tabla de calificaciones por grupo. Edita nombres y actividades directamente. El promedio se redondea a un decimal.</p>
     </div>
     <div class="filter-bar">
       <label>Grado:</label>
@@ -1124,6 +1189,8 @@ function viewListas() {
     </div>
   `;
 }
+
+// ─── Funciones auxiliares de Listas ───
 function addActividad(gid) {
   if (!gid) { toast('Selecciona un grupo primero','error'); return; }
   const inp = document.getElementById('newActName');
@@ -1136,12 +1203,14 @@ function addActividad(gid) {
   save(); renderTeacherBody();
   toast(`Actividad "${name}" agregada`,'success');
 }
+
 function editActividad(gid, aid) {
   const g = state.groups.find(x=>x.id===gid); if (!g) return;
   const a = (g.activities||[]).find(x=>x.id===aid); if (!a) return;
   const newName = prompt('Nuevo nombre para la actividad:', a.name);
   if (newName && newName.trim()) { a.name = newName.trim(); save(); renderTeacherBody(); toast('Actividad actualizada','success'); }
 }
+
 function deleteActividad(gid, aid) {
   if (!confirm('¿Eliminar esta actividad y todas sus calificaciones?')) return;
   const g = state.groups.find(x=>x.id===gid); if (!g) return;
@@ -1150,6 +1219,7 @@ function deleteActividad(gid, aid) {
   save(); renderTeacherBody();
   toast('Actividad eliminada','success');
 }
+
 function setGrade(gid, sid, aid, val) {
   const g = state.groups.find(x=>x.id===gid); if (!g) return;
   if (!g.grades) g.grades = {};
@@ -1158,7 +1228,13 @@ function setGrade(gid, sid, aid, val) {
   if (val==='') delete g.grades[key];
   else g.grades[key] = val;
   save();
+  // Actualizar el promedio en la tabla sin recargar toda la vista
+  const avg = calcAvg(g, sid);
+  const avgCell = document.querySelector(`#avg_${gid}_${sid}`);
+  if (avgCell) avgCell.textContent = avg !== null ? avg.toFixed(1) : '–';
+  // Si la celda no existe, se actualizará al recargar
 }
+
 function editStudentName(gid, sid, newName) {
   const g = state.groups.find(x=>x.id===gid); if (!g) return;
   const s = (g.students||[]).find(x=>x.id===sid); if (!s) return;
@@ -1168,6 +1244,7 @@ function editStudentName(gid, sid, newName) {
   save();
   toast('Nombre actualizado','success');
 }
+
 function deleteStudent(gid, sid) {
   if (!confirm('¿Eliminar a este alumno y todas sus calificaciones?')) return;
   const g = state.groups.find(x=>x.id===gid); if (!g) return;
@@ -1182,6 +1259,7 @@ function deleteStudent(gid, sid) {
   save(); renderTeacherBody();
   toast('Alumno eliminado','success');
 }
+
 function modalAddStudent() {
   openModal(`
     <div class="modal-head"><h3>➕ Agregar alumno</h3><button class="modal-close" onclick="closeModal()">×</button></div>
@@ -1205,6 +1283,7 @@ function modalAddStudent() {
   `);
   setTimeout(()=>document.getElementById('newStName')?.focus(), 50);
 }
+
 function saveNewStudent() {
   const name = ($('#newStName')?.value||'').trim();
   if (!name) { toast('Escribe el nombre','error'); return; }
@@ -1230,112 +1309,7 @@ function saveNewStudent() {
   toast(`Alumno agregado con código ${code}`,'success');
 }
 
-/* ─── ALUMNOS ─── */
-function viewAlumnos() {
-  let html = `
-    <div class="panel tinted">
-      <h3>👥 Gestión de Alumnos</h3>
-      <p class="sub">Agrega, edita o elimina alumnos. El código de acceso es de 4 caracteres alfanuméricos.</p>
-      <button class="btn btn-primary btn-small" onclick="modalAddStudent()">➕ Agregar alumno</button>
-    </div>
-  `;
-  const sorted = sortedGroups();
-  if (!sorted.length) return html + `<div class="empty-state"><div class="big">👤</div><p>No hay grupos registrados.</p></div>`;
-
-  sorted.forEach(g => {
-    const students = (g.students||[]).slice().sort((a,b)=>String(a.name).localeCompare(String(b.name),'es'));
-    if (!students.length) return;
-    const rows = students.map(s => `
-      <tr>
-        <td><strong>${esc(s.name)}</strong></td>
-        <td><code style="background:rgba(0,0,0,0.05); padding:2px 8px; border-radius:12px; font-weight:700;">${esc(s.code)}</code></td>
-        <td>
-          <button class="action-icon" onclick="editStudent('${g.id}','${s.id}')" title="Editar">✏️</button>
-          <button class="action-icon danger" onclick="deleteStudent('${g.id}','${s.id}')" title="Eliminar">🗑️</button>
-        </td>
-      </tr>
-    `).join('');
-
-    html += `
-      <div class="panel" style="padding:0.5rem 0; overflow:hidden;">
-        <div style="padding:0.5rem 1.2rem; background:rgba(255,255,255,0.1); border-bottom:1px solid rgba(255,255,255,0.1); display:flex; align-items:center; gap:0.6rem;">
-          <strong style="font-size:1rem;">${gradoLabel(g.grado)} Grupo ${esc(g.grupo)}</strong>
-          <span class="pill">${students.length} alumnos</span>
-        </div>
-        <div class="table-wrap" style="border:none; border-radius:0;">
-          <table class="glass-table">
-            <thead><tr><th>Nombre</th><th>Código</th><th style="width:100px;">Acciones</th></tr></thead>
-            <tbody>${rows}</tbody>
-          </table>
-        </div>
-      </div>
-    `;
-  });
-  return html;
-}
-
-function editStudent(gid, sid) {
-  const g = state.groups.find(x=>x.id===gid); if (!g) return;
-  const s = (g.students||[]).find(x=>x.id===sid); if (!s) return;
-  openModal(`
-    <div class="modal-head"><h3>✏️ Editar alumno</h3><button class="modal-close" onclick="closeModal()">×</button></div>
-    <div class="modal-body">
-      <div class="field"><label>Nombre completo</label><input id="editStName" type="text" value="${esc(s.name)}"></div>
-      <div class="field-row">
-        <div class="field"><label>Grado</label>
-          <select id="editStGrado">
-            ${state.config.grades.map(grd => `<option value="${grd}" ${grd===g.grado?'selected':''}>${gradoLabel(grd)}</option>`).join('')}
-          </select>
-        </div>
-        <div class="field"><label>Grupo</label>
-          <select id="editStGrupo">
-            ${state.config.groups.map(grp => `<option value="${grp}" ${grp===g.grupo?'selected':''}>${grp}</option>`).join('')}
-          </select>
-        </div>
-      </div>
-      <div class="field"><label>Código de acceso</label><input id="editStCode" type="text" value="${esc(s.code)}" style="text-transform:uppercase; letter-spacing:0.1em;"></div>
-      <div class="btn-row" style="justify-content:flex-end;">
-        <button class="btn" onclick="closeModal()">Cancelar</button>
-        <button class="btn btn-primary" onclick="saveEditStudent('${gid}','${sid}')">Guardar cambios</button>
-      </div>
-    </div>
-  `);
-}
-function saveEditStudent(gid, sid) {
-  const g = state.groups.find(x=>x.id===gid); if (!g) return;
-  const s = (g.students||[]).find(x=>x.id===sid); if (!s) return;
-  const name = ($('#editStName')?.value||'').trim();
-  if (!name) { toast('El nombre no puede estar vacío','error'); return; }
-  const grado = $('#editStGrado').value;
-  const grupo = $('#editStGrupo').value;
-  const code = ($('#editStCode')?.value||'').trim().toUpperCase();
-  if (!code) { toast('El código no puede estar vacío','error'); return; }
-  const duplicate = g.students.some(st => st.id !== sid && st.code === code);
-  if (duplicate) { toast('El código ya está en uso en este grupo','error'); return; }
-
-  const sameGroup = String(g.grado)===String(grado) && String(g.grupo).toUpperCase()===String(grupo).toUpperCase();
-  if (!sameGroup) {
-    const newG = getOrCreateGroup(grado, grupo);
-    g.students = g.students.filter(x=>x.id!==sid);
-    if (g.grades) Object.keys(g.grades).forEach(k => { if (k.startsWith(sid+'_')) delete g.grades[k]; });
-    if (g.attendance) {
-      Object.keys(g.attendance).forEach(date => {
-        if (g.attendance[date][sid]) delete g.attendance[date][sid];
-        if (Object.keys(g.attendance[date]).length === 0) delete g.attendance[date];
-      });
-    }
-    newG.students.push({ id:s.id, name, code });
-    save(); renderTeacherBody(); closeModal();
-    toast('Alumno movido a nuevo grupo','success');
-  } else {
-    s.name = name;
-    s.code = code;
-    save(); renderTeacherBody(); closeModal();
-    toast('Alumno actualizado','success');
-  }
-}
-
-/* ─── ASISTENCIA ─── */
+/* ─── ASISTENCIA (sin cambios en funcionalidad) ─── */
 let attendanceDate = todayStr();
 let attendanceGrado = '1';
 let attendanceGrupo = 'A';
@@ -1385,7 +1359,7 @@ function viewAsistencia() {
         <span><span class="chip">⏳ Pendientes: ${pendientes}</span></span>
       </div>
       <div class="table-wrap">
-        <table class="glass-table">
+        <table class="excel-table">
           <thead><tr><th>#</th><th>Alumno</th><th style="min-width:200px;">Estado</th></tr></thead>
           <tbody>${rows}</tbody>
         </table>
@@ -1459,7 +1433,116 @@ function exportAttendance() {
   toast('Reporte exportado','success');
 }
 
-/* ─── MATERIALES ─── */
+/* ─── ALUMNOS ─── */
+function viewAlumnos() {
+  let html = `
+    <div class="panel tinted">
+      <h3>👥 Gestión de Alumnos</h3>
+      <p class="sub">Agrega, edita o elimina alumnos. El código de acceso es de 4 caracteres alfanuméricos.</p>
+      <button class="btn btn-primary btn-small" onclick="modalAddStudent()">➕ Agregar alumno</button>
+    </div>
+  `;
+  const sorted = sortedGroups();
+  if (!sorted.length) return html + `<div class="empty-state"><div class="big">👤</div><p>No hay grupos registrados.</p></div>`;
+
+  sorted.forEach(g => {
+    const students = (g.students||[]).slice().sort((a,b)=>String(a.name).localeCompare(String(b.name),'es'));
+    if (!students.length) return;
+    const rows = students.map(s => `
+      <tr>
+        <td><strong>${esc(s.name)}</strong></td>
+        <td><code style="background:rgba(0,0,0,0.05); padding:2px 8px; border-radius:12px; font-weight:700;">${esc(s.code)}</code></td>
+        <td>
+          <button class="action-icon" onclick="editStudent('${g.id}','${s.id}')" title="Editar">✏️</button>
+          <button class="action-icon danger" onclick="deleteStudent('${g.id}','${s.id}')" title="Eliminar">🗑️</button>
+        </td>
+      </tr>
+    `).join('');
+
+    html += `
+      <div class="panel" style="padding:0.5rem 0; overflow:hidden;">
+        <div style="padding:0.5rem 1.2rem; background:rgba(255,255,255,0.1); border-bottom:1px solid rgba(255,255,255,0.1); display:flex; align-items:center; gap:0.6rem;">
+          <strong style="font-size:1rem;">${gradoLabel(g.grado)} Grupo ${esc(g.grupo)}</strong>
+          <span class="pill">${students.length} alumnos</span>
+        </div>
+        <div class="table-wrap" style="border:none; border-radius:0;">
+          <table class="excel-table">
+            <thead><tr><th>Nombre</th><th>Código</th><th style="width:100px;">Acciones</th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      </div>
+    `;
+  });
+  return html;
+}
+
+function editStudent(gid, sid) {
+  const g = state.groups.find(x=>x.id===gid); if (!g) return;
+  const s = (g.students||[]).find(x=>x.id===sid); if (!s) return;
+  openModal(`
+    <div class="modal-head"><h3>✏️ Editar alumno</h3><button class="modal-close" onclick="closeModal()">×</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Nombre completo</label><input id="editStName" type="text" value="${esc(s.name)}"></div>
+      <div class="field-row">
+        <div class="field"><label>Grado</label>
+          <select id="editStGrado">
+            ${state.config.grades.map(grd => `<option value="${grd}" ${grd===g.grado?'selected':''}>${gradoLabel(grd)}</option>`).join('')}
+          </select>
+        </div>
+        <div class="field"><label>Grupo</label>
+          <select id="editStGrupo">
+            ${state.config.groups.map(grp => `<option value="${grp}" ${grp===g.grupo?'selected':''}>${grp}</option>`).join('')}
+          </select>
+        </div>
+      </div>
+      <div class="field"><label>Código de acceso</label><input id="editStCode" type="text" value="${esc(s.code)}" style="text-transform:uppercase; letter-spacing:0.1em;"></div>
+      <div class="btn-row" style="justify-content:flex-end;">
+        <button class="btn" onclick="closeModal()">Cancelar</button>
+        <button class="btn btn-primary" onclick="saveEditStudent('${gid}','${sid}')">Guardar cambios</button>
+      </div>
+    </div>
+  `);
+}
+
+function saveEditStudent(gid, sid) {
+  const g = state.groups.find(x=>x.id===gid); if (!g) return;
+  const s = (g.students||[]).find(x=>x.id===sid); if (!s) return;
+  const name = ($('#editStName')?.value||'').trim();
+  if (!name) { toast('El nombre no puede estar vacío','error'); return; }
+  const grado = $('#editStGrado').value;
+  const grupo = $('#editStGrupo').value;
+  const code = ($('#editStCode')?.value||'').trim().toUpperCase();
+  if (!code) { toast('El código no puede estar vacío','error'); return; }
+  const duplicate = g.students.some(st => st.id !== sid && st.code === code);
+  if (duplicate) { toast('El código ya está en uso en este grupo','error'); return; }
+
+  const sameGroup = String(g.grado)===String(grado) && String(g.grupo).toUpperCase()===String(grupo).toUpperCase();
+  if (!sameGroup) {
+    const newG = getOrCreateGroup(grado, grupo);
+    g.students = g.students.filter(x=>x.id!==sid);
+    if (g.grades) Object.keys(g.grades).forEach(k => { if (k.startsWith(sid+'_')) delete g.grades[k]; });
+    if (g.attendance) {
+      Object.keys(g.attendance).forEach(date => {
+        if (g.attendance[date][sid]) delete g.attendance[date][sid];
+        if (Object.keys(g.attendance[date]).length === 0) delete g.attendance[date];
+      });
+    }
+    newG.students.push({ id:s.id, name, code });
+    save(); renderTeacherBody(); closeModal();
+    toast('Alumno movido a nuevo grupo','success');
+  } else {
+    s.name = name;
+    s.code = code;
+    save(); renderTeacherBody(); closeModal();
+    toast('Alumno actualizado','success');
+  }
+}
+
+/* ─── MATERIALES, TAREAS, EXÁMENES, CONFIGURACIÓN (sin cambios) ─── */
+// ... (el resto del código se mantiene igual que en la versión anterior)
+
+// ─── MATERIALES ───
 function viewMateriales() {
   const head = `
     <div class="panel tinted">
@@ -1547,7 +1630,7 @@ function deleteMaterial(id) {
   save(); renderTeacherBody(); toast('Material eliminado','success');
 }
 
-/* ─── TAREAS ─── */
+// ─── TAREAS ───
 let _taskAttachment = null;
 function viewTareas() {
   const head = `
@@ -1659,7 +1742,7 @@ function deleteTarea(id) {
   save(); renderTeacherBody(); toast('Tarea eliminada','success');
 }
 
-/* ─── EXÁMENES ─── */
+// ─── EXÁMENES ───
 function viewExamenes(){
   const head = `
     <div class="panel tinted">
@@ -1778,7 +1861,7 @@ function verResultadosExamen(id){
   openModal(`
     <div class="modal-head"><h3>📊 ${esc(e.title)}</h3><button class="modal-close" onclick="closeModal()">×</button></div>
     <div class="modal-body">
-      <div class="table-wrap"><table class="glass-table">
+      <div class="table-wrap"><table class="excel-table">
         <thead><tr><th>Alumno</th><th class="num">Aciertos</th><th class="num">Calif.</th><th class="num">Fecha</th></tr></thead>
         <tbody>${rows}</tbody>
       </table></div>
@@ -1786,7 +1869,7 @@ function verResultadosExamen(id){
   `);
 }
 
-/* ─── CONFIGURACIÓN ─── */
+// ─── CONFIGURACIÓN ───
 function viewConfiguracion(){
   const total = state.groups.reduce((a,g)=>a+(g.students||[]).length,0);
   return `
@@ -1872,7 +1955,7 @@ function removeGroup(g){
   save(); renderTeacherBody(); toast('Grupo eliminado','success');
 }
 
-/* ─── RESPALDO ─── */
+// ─── RESPALDO ───
 function exportBackup() {
   const data = {
     config: state.config,
@@ -2018,7 +2101,7 @@ function studentCalif() {
   return `
     <div class="panel">
       <h3>📊 Mis calificaciones</h3>
-      <div class="table-wrap"><table class="glass-table">
+      <div class="table-wrap"><table class="excel-table">
         <thead><tr><th>Actividad</th><th class="num">Calificación</th></tr></thead>
         <tbody>${rows}</tbody>
       </table></div>
@@ -2153,7 +2236,7 @@ function parentCalif() {
   return `
     <div class="panel">
       <h3>📊 Calificaciones de ${esc(me.name)}</h3>
-      <div class="table-wrap"><table class="glass-table">
+      <div class="table-wrap"><table class="excel-table">
         <thead><tr><th>Actividad</th><th class="num">Calificación</th></tr></thead>
         <tbody>${rows}</tbody>
       </table></div>
