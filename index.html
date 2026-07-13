@@ -211,31 +211,37 @@
       font-family: 'Segoe UI', sans-serif;
     }
 
-    /* ─── TABLA ESTILO EXCEL – COMPACTA ─── */
+    /* ─── TABLA ESTILO EXCEL ─── */
     .table-wrap {
       overflow-x: auto;
       border-radius: 8px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(200, 200, 200, 0.2);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.01);
+      border: 1px solid #c0b8ac;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
     }
     table.excel-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.6rem;
+      font-size: 0.75rem;
       font-family: 'Segoe UI', sans-serif;
-      background: #fcfaf7;
+      background: #fff;
       table-layout: auto;
     }
     table.excel-table th,
     table.excel-table td {
-      padding: 1px 2px;
-      border-bottom: 1px solid #e0dad2;
+      padding: 4px 6px;
+      border: 1px solid #d0c8bc;
       vertical-align: middle;
+    }
+    table.excel-table th {
+      background: #e8e0d5;
+      font-weight: 700;
       text-align: center;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      color: #1a2a3a;
+      border-bottom: 2px solid #b0a898;
+    }
+    table.excel-table td {
+      background: #fff;
     }
     table.excel-table tr:nth-child(even) td {
       background: #f8f5f0;
@@ -244,75 +250,78 @@
       background: #f0ebe3;
     }
     .col-num {
-      width: 20px;
-      max-width: 20px;
-      background: #f5f0ea;
-      border-right: 1px solid #d0c8bc;
+      text-align: center;
       font-weight: 600;
       color: #4a5a6a;
+      width: 30px;
+      min-width: 30px;
+      max-width: 30px;
     }
     .col-alumno {
-      max-width: 20ch;
-      background: #f5f0ea;
-      border-right: 1px solid #d0c8bc;
       text-align: left;
+      width: 150px;
+      min-width: 130px;
+      max-width: 200px;
     }
     .col-alumno input {
       width: 100%;
       border: 1px solid transparent;
       background: transparent;
-      padding: 0 2px;
-      font-size: 0.6rem;
+      padding: 2px 4px;
+      font-size: 0.75rem;
       font-weight: 600;
       outline: none;
       font-family: 'Segoe UI', sans-serif;
+      border-radius: 3px;
     }
     .col-alumno input:hover { border-color: #c0b8ac; background: rgba(255,255,255,0.3); }
     .col-alumno input:focus { border-color: #2c4a6e; background: #fff; }
 
     .col-actividad {
-      width: 30px;
-      max-width: 30px;
+      width: 50px;
+      min-width: 40px;
+      max-width: 60px;
+      text-align: center;
       background: #faf7f2;
-      padding: 0 1px;
+      padding: 2px 2px;
     }
     .act-vertical {
       writing-mode: vertical-rl;
-      text-orientation: upright;
-      font-size: 0.45rem;
+      text-orientation: mixed;
+      font-size: 0.6rem;
       font-weight: 700;
-      letter-spacing: 0.06em;
-      line-height: 1.0;
+      letter-spacing: 0.04em;
+      line-height: 1.2;
       display: inline-block;
-      max-height: 110px;
+      max-height: 120px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
       width: 100%;
       text-align: center;
       color: #1a2a3a;
+      padding: 0 1px;
     }
     .act-header {
       background: #e8e0d5;
-      border-bottom: 2px solid #c0b8ac;
-      vertical-align: middle;
+      border-bottom: 2px solid #b0a898;
     }
 
     .col-calif {
-      padding: 0 1px;
+      text-align: center;
+      padding: 2px 2px;
     }
     .col-calif input {
-      width: 28px;
+      width: 38px;
       text-align: center;
-      padding: 0 1px;
+      padding: 2px 2px;
       border: 1px solid #d0c8bc;
       border-radius: 3px;
-      background: rgba(255,255,255,0.6);
-      font-size: 0.6rem;
+      background: rgba(255,255,255,0.8);
+      font-size: 0.75rem;
       font-weight: 600;
       outline: none;
       font-family: 'Segoe UI', sans-serif;
-      box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);
       transition: 0.1s;
     }
     .col-calif input:focus {
@@ -322,30 +331,33 @@
     }
 
     .col-promedio {
-      width: 25px;
-      max-width: 25px;
-      background: #e8f0e0;
+      text-align: center;
       font-weight: 800;
-      border-left: 1px solid #d0c8bc;
-      font-size: 0.65rem;
+      background: #e8f0e0;
+      border-left: 2px solid #b0a898;
+      width: 50px;
+      min-width: 40px;
+      max-width: 60px;
       color: #1a3a2a;
     }
     .col-acciones {
-      width: 25px;
-      max-width: 25px;
+      text-align: center;
+      width: 40px;
+      min-width: 35px;
+      max-width: 45px;
       background: #f5f0ea;
-      border-left: 1px solid #d0c8bc;
+      border-left: 2px solid #b0a898;
     }
     .col-acciones .action-icon {
-      font-size: 0.65rem;
-      padding: 0 1px;
+      font-size: 0.8rem;
+      padding: 2px 4px;
     }
 
     .action-icon {
       background: transparent;
       border: none;
       cursor: pointer;
-      border-radius: 3px;
+      border-radius: 4px;
       transition: 0.1s;
       color: #4a5a6a;
     }
@@ -636,11 +648,12 @@
       .login-grid { grid-template-columns: 1fr; }
       .field-row { grid-template-columns: 1fr; }
       .topbar .right { position: static; justify-content: center; margin-top: 0.4rem; }
-      .col-alumno { max-width: 16ch; }
-      .col-actividad { width: 26px; max-width: 26px; }
-      .col-calif input { width: 24px; }
-      .col-promedio { width: 20px; max-width: 20px; }
-      .col-acciones { width: 20px; max-width: 20px; }
+      .col-alumno { min-width: 90px; max-width: 120px; }
+      .col-actividad { min-width: 30px; max-width: 40px; }
+      .col-calif input { width: 30px; }
+      .col-promedio { min-width: 30px; max-width: 40px; }
+      .col-acciones { min-width: 30px; max-width: 35px; }
+      .act-vertical { font-size: 0.5rem; }
     }
   </style>
 </head>
@@ -1119,7 +1132,7 @@ function renderTeacherBody() {
   else if (teacherTab === 'configuracion') c.innerHTML = viewConfiguracion();
 }
 
-/* ─── LISTAS ─── */
+/* ─── LISTAS (rediseño estilo Excel) ─── */
 let currentGrado = '1';
 let currentGrupo = 'A';
 
@@ -1137,7 +1150,7 @@ function viewListas() {
   if (!group || students.length === 0) {
     tableHtml = `<div class="empty-state"><div class="big">📊</div><p>No hay alumnos en este grupo. Agrega alumnos en la pestaña "Alumnos".</p></div>`;
   } else {
-    // Encabezados de actividades con texto vertical (sin botones)
+    // Encabezados de actividades con texto vertical
     const headerCols = activities.map(a => {
       const nameVertical = a.name.split('').join('\n');
       return `
@@ -1173,7 +1186,7 @@ function viewListas() {
             <th class="col-num">#</th>
             <th class="col-alumno">Alumno</th>
             ${headerCols}
-            <th class="col-promedio" style="background:#d8d0c4;">Prom.</th>
+            <th class="col-promedio">Prom.</th>
             <th class="col-acciones"></th>
           </tr></thead>
           <tbody>${rows}</tbody>
@@ -1184,12 +1197,12 @@ function viewListas() {
 
   // Barra de acciones inferior con selector de actividad para editar/eliminar
   const actions = `
-    <div style="display:flex; gap:0.5rem; flex-wrap:wrap; align-items:center; margin-top:0.8rem;">
-      <input id="newActName" type="text" placeholder="Nueva actividad" style="flex:1; min-width:100px; padding:0.3rem 0.6rem; border-radius:40px; border:1px solid rgba(200,200,200,0.4); background:rgba(255,255,255,0.3); backdrop-filter:blur(4px); font:inherit; outline:none; font-size:0.8rem; font-family:'Segoe UI',sans-serif;">
+    <div style="display:flex; gap:0.6rem; flex-wrap:wrap; align-items:center; margin-top:0.8rem;">
+      <input id="newActName" type="text" placeholder="Nueva actividad" style="flex:1; min-width:120px; padding:0.3rem 0.8rem; border-radius:40px; border:1px solid rgba(200,200,200,0.4); background:rgba(255,255,255,0.3); backdrop-filter:blur(4px); font:inherit; outline:none; font-size:0.8rem; font-family:'Segoe UI',sans-serif;">
       <button class="btn btn-green btn-small" onclick="addActividad('${group?group.id:''}')">➕ Actividad</button>
 
       ${group && activities.length ? `
-        <select id="actSelector" style="padding:0.3rem 0.6rem; border-radius:40px; border:1px solid rgba(200,200,200,0.4); background:rgba(255,255,255,0.3); font-size:0.8rem; outline:none;">
+        <select id="actSelector" style="padding:0.3rem 0.8rem; border-radius:40px; border:1px solid rgba(200,200,200,0.4); background:rgba(255,255,255,0.3); font-size:0.8rem; outline:none;">
           ${activities.map(a => `<option value="${a.id}">${esc(a.name)}</option>`).join('')}
         </select>
         <button class="btn btn-small" onclick="editSelectedActividad('${group.id}')">✏️ Editar</button>
@@ -1204,7 +1217,7 @@ function viewListas() {
   return `
     <div class="panel tinted">
       <h3>📋 Listas</h3>
-      <p class="sub">Tabla de calificaciones por grupo. Los promedios se redondean al entero más cercano.</p>
+      <p class="sub">Tabla de calificaciones estilo Excel. Los promedios se redondean al entero más cercano.</p>
     </div>
     <div class="filter-bar">
       <label>Grado:</label>
@@ -1216,7 +1229,7 @@ function viewListas() {
         ${grupos.map(g => `<option value="${g}" ${g===currentGrupo?'selected':''}>${g}</option>`).join('')}
       </select>
     </div>
-    <div class="panel" style="padding:0.5rem 0.6rem;">
+    <div class="panel" style="padding:0.6rem 0.8rem;">
       ${tableHtml}
       ${group ? actions : `<p class="sub" style="margin-top:0.6rem;">Selecciona un grado y grupo válido.</p>`}
     </div>
